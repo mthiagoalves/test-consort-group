@@ -1,7 +1,9 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { CartService } from "./cart.service";
 import { CreateCartDto } from "./dto/create-cart.dto";
-import { ApiTags } from '@nestjs/swagger/dist';
+import { ApiOperation, ApiTags } from '@nestjs/swagger/dist';
+import { Cart } from "./entities/cart.entity";
+import { Param } from "@nestjs/common/decorators";
 
 @ApiTags('Cart')
 @Controller('cart')
@@ -9,13 +11,26 @@ export class CartController {
   constructor(private readonly cartService: CartService){}
 
   @Get()
-  findAll() {
-
+  @ApiOperation({
+    summary: 'List all open cart'
+  })
+  findAll(): Promise<Cart[]> {
     return this.cartService.findAll();
   }
 
+  @Get(':id')
+  @ApiOperation({
+    summary: 'Find a specific cart'
+  })
+  findOne(@Param('id') id: string): Promise<Cart> {
+    return this.cartService.findOne(id);
+  }
+
   @Post()
-  create(@Body() dto: CreateCartDto){
-    return this.cartService.create(dto);
+  @ApiOperation({
+    summary: 'Create new cart'
+  })
+  create(@Body() createCartDto: CreateCartDto): Promise<Cart>{
+    return this.cartService.create(createCartDto);
   }
 }

@@ -12,6 +12,10 @@ export class CartService {
     return this.prisma.cart.findMany();
   }
 
+  findOne(id: string): Promise<Cart> {
+    return this.prisma.cart.findUnique({ where: { id } })
+  }
+
   create(dto: CreateCartDto) {
     const data: Cart = {...dto}
 
