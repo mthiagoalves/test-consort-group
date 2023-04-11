@@ -1,4 +1,4 @@
 export class Cart {
-  id: string;
+  id?: string;
   number: number;
 }

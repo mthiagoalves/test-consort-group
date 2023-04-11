@@ -1,20 +1,20 @@
 import { Injectable } from "@nestjs/common/decorators";
 import { CreateCartDto } from "./dto/create-cart.dto";
 import { Cart } from "./entities/cart.entity";
+import { PrismaService } from "src/prisma/prisma.service";
 
 @Injectable()
 export class CartService {
-  carts: Cart[] = [];
+
+  constructor(private readonly prisma: PrismaService){}
 
   findAll() {
-    return this.carts;
+    return this.prisma.cart.findMany();
   }
 
-  create(createCartDto: CreateCartDto) {
-    const cart: Cart = {id: 'random_id', ...createCartDto}
+  create(dto: CreateCartDto) {
+    const data: Cart = {...dto}
 
-    this.carts.push(cart);
-
-    return cart;
+    return this.prisma.cart.create({ data });
   }
 }

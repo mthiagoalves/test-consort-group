@@ -6,7 +6,7 @@ import { ApiTags } from '@nestjs/swagger/dist';
 @ApiTags('Cart')
 @Controller('cart')
 export class CartController {
-  constructor(private cartService: CartService){}
+  constructor(private readonly cartService: CartService){}
 
   @Get()
   findAll() {
@@ -15,7 +15,7 @@ export class CartController {
   }
 
   @Post()
-  create(@Body() createCartDto: CreateCartDto){
-    return this.cartService.create(createCartDto);
+  create(@Body() dto: CreateCartDto){
+    return this.cartService.create(dto);
   }
 }
