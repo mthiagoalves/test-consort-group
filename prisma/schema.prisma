@@ -15,5 +15,5 @@ model Cart {
   number  Int       @unique
 
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  updatedAt DateTime  @updatedAt  
 }
