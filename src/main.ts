@@ -10,10 +10,12 @@ async function bootstrap() {
     .setDescription('Project test to Consort Group')
     .setVersion('1.0.0')
     .addTag('Status')
+    .addTag('Auth')
     .addTag('Purchase')
     .addTag('Cart')
     .addTag('User')
     .addTag('Product')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
