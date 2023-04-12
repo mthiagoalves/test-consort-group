@@ -13,7 +13,7 @@ export class CartService {
     return this.prisma.cart.findMany();
   }
 
-  async findOne(id: string): Promise<Cart> {
+  async findById(id: string): Promise<Cart> {
     const record = await this.prisma.cart.findUnique({ where: { id } });
 
     if(!record) {
@@ -23,13 +23,19 @@ export class CartService {
     return record;
   }
 
+  async findOne(id: string): Promise<Cart> {
+    return this.findById(id);
+  }
+
   create(dto: CreateCartDto) {
     const data: Cart = {...dto}
 
     return this.prisma.cart.create({ data });
   }
 
-  update(id: string, dto: UpdateCartDto): Promise<Cart> {
+  async update(id: string, dto: UpdateCartDto): Promise<Cart> {
+    await this.findById(id);
+
     const data: Partial<Cart> = {...dto};
 
     return this.prisma.cart.update({
