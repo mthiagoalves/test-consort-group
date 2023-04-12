@@ -1,9 +1,10 @@
 import { Injectable } from "@nestjs/common/decorators";
-import { NotFoundException, UnprocessableEntityException } from "@nestjs/common/exceptions";
-import { CreateCartDto } from "./dto/create-cart.dto";
-import { Cart } from "./entities/cart.entity";
+import { NotFoundException } from "@nestjs/common/exceptions";
 import { PrismaService } from "src/prisma/prisma.service";
+import { handleError } from "src/utils/handle-error.utils";
+import { CreateCartDto } from "./dto/create-cart.dto";
 import { UpdateCartDto } from "./dto/update-cart.dto";
+import { Cart } from "./entities/cart.entity";
 
 @Injectable()
 export class CartService {
@@ -30,7 +31,7 @@ export class CartService {
   create(dto: CreateCartDto) {
     const data: Cart = {...dto}
 
-    return this.prisma.cart.create({ data }).catch(this.handleError);
+    return this.prisma.cart.create({ data }).catch(handleError);
   }
 
   async update(id: string, dto: UpdateCartDto): Promise<Cart> {
@@ -42,7 +43,7 @@ export class CartService {
       where: { id },
       data,
     })
-    .catch(this.handleError);
+    .catch(handleError);
   }
 
   async delete(id: string) {
@@ -52,9 +53,4 @@ export class CartService {
 
   }
 
-  handleError(error: Error): undefined {
-    const errorLines = error.message.split('\n');
-    const lastErrorLine = errorLines[errorLines.length -1].trim();
-    throw new UnprocessableEntityException(lastErrorLine || 'Any error was find in operation');
-  }
 }
