@@ -45,6 +45,7 @@ export class CartService {
   }
 
   async delete(id: string) {
+    await this.findById(id);
 
     await this.prisma.cart.delete({ where: { id } })
 
