@@ -8,14 +8,29 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
+
+  private userSelect = {
+    id: true,
+    name: true,
+    username: true,
+    password: false,
+    createdAt: true,
+    updatedAt: true
+  };
+
   constructor(private readonly prisma: PrismaService){}
 
   findAll() {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({
+      select: this.userSelect,
+    });
   }
 
   async findById(id: string): Promise<User> {
-    const record = await this.prisma.user.findUnique({ where: { id } });
+    const record = await this.prisma.user.findUnique({
+      where: { id },
+      select: this.userSelect,
+    });
 
     if(!record) {
       throw new NotFoundException(`This id: '${id}', is not found`)
@@ -28,11 +43,12 @@ export class UserService {
     return this.findById(id);
   }
 
-  async create(dto: CreateUserDto) {
+  async create(dto: CreateUserDto): Promise<User> {
 
     if(dto.password != dto.confirmPassword) {
       throw new BadRequestException('Passwords do not match');
     }
+
     delete dto.confirmPassword;
 
     const data: User = {
@@ -40,7 +56,10 @@ export class UserService {
       password: await bcrypt.hash(dto.password, 10)
     };
 
-    return this.prisma.user.create({ data }).catch(this.handleError);
+    return this.prisma.user.create({
+      data,
+      select: this.userSelect
+    }).catch(this.handleError);
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
@@ -58,11 +77,12 @@ export class UserService {
 
     if(data.password) {
       data.password = await bcrypt.hash(data.password, 10)
-    };  
+    };
 
     return this.prisma.user.update({
       where: { id },
       data,
+      select: this.userSelect
     })
     .catch(this.handleError);
   }
