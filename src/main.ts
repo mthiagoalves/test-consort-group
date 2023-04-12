@@ -10,6 +10,7 @@ async function bootstrap() {
     .setDescription('Project test to Consort Group')
     .setVersion('1.0.0')
     .addTag('Status')
+    .addTag('Product')  
     .addTag('Cart')
     .build();
 
