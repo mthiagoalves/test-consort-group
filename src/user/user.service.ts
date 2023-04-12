@@ -28,6 +28,8 @@ export class UserService {
   }
 
   create(dto: CreateUserDto) {
+    delete dto.confirmPassword;
+
     const data: User = {...dto}
 
     return this.prisma.user.create({ data }).catch(this.handleError);
@@ -55,6 +57,10 @@ export class UserService {
   handleError(error: Error): undefined {
     const errorLines = error.message.split('\n');
     const lastErrorLine = errorLines[errorLines.length -1].trim();
+
+    if(!lastErrorLine) {
+      console.error(error)
+    }
     throw new UnprocessableEntityException(lastErrorLine || 'Any error was find in operation');
   }
 }
