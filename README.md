@@ -1,12 +1,16 @@
 # Test Consort Group
 
+## 💻 This project
+
+This project consists of simulating a shopping cart until the completion of the purchase itself.
+
 ## 🚀 Start project
 
 These instructions will allow you to get a copy of the project up and running on your local machine for development and testing purposes.
 
 ### 📋 Requirements
 
-To run this project in your pc, 
+To run this project in your pc,
 To run this project on your machine you will need to install some dependencies, you can see them in more detail at [package.json]
 (https://github.com/mthiagoalves/test-consort-group/blob/main/package.json). <br><br>
 
@@ -29,17 +33,16 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-
 ## 🛠️ Make with:
 
-* Engine - [NodeJs](https://nodejs.org/en/docs/)
-* FrameWork - [Nest](https://docs.nestjs.coml)
-* Db - [PostgreSQL](https://www.postgresql.org/docs/)
-* Docs - [Swagger UI](https://swagger.io/docs/)
+- Engine - [NodeJs](https://nodejs.org/en/docs/)
+- FrameWork - [Nest](https://docs.nestjs.coml)
+- Db - [PostgreSQL](https://www.postgresql.org/docs/)
+- Docs - [Swagger UI](https://swagger.io/docs/)
 
 ## ✒️ Author
 
-* **Thiago Alves** - [Linkedin](https://www.linkedin.com/in/thiago-alves-b05ab2b0/)
+- **Thiago Alves** - [Linkedin](https://www.linkedin.com/in/thiago-alves-b05ab2b0/)
 
 ## 📄 Licence
 
