@@ -30,4 +30,10 @@ export class CartService {
       data,
     })
   }
+
+  async delete(id: string) {
+
+    await this.prisma.cart.delete({ where: { id } })
+
+  }
 }

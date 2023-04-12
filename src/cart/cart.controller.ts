@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, HttpCode, HttpStatus } from "@nestjs/common";
 import { CartService } from "./cart.service";
 import { CreateCartDto } from "./dto/create-cart.dto";
 import { ApiOperation, ApiTags } from '@nestjs/swagger/dist';
 import { Cart } from "./entities/cart.entity";
-import { Param, Patch } from "@nestjs/common/decorators";
+import { Delete, Param, Patch } from "@nestjs/common/decorators";
 import { UpdateCartDto } from "./dto/update-cart.dto";
 
 @ApiTags('Cart')
@@ -27,6 +27,14 @@ export class CartController {
     return this.cartService.findOne(id);
   }
 
+  @Post()
+  @ApiOperation({
+    summary: 'Create new cart'
+  })
+  create(@Body() createCartDto: CreateCartDto): Promise<Cart>{
+    return this.cartService.create(createCartDto);
+  }
+
   @Patch(':id')
   @ApiOperation({
     summary: 'Update a cart for id'
@@ -35,11 +43,12 @@ export class CartController {
     return this.cartService.update(id, dto);
   }
 
-  @Post()
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
-    summary: 'Create new cart'
+    summary: 'Delete a cart for id'
   })
-  create(@Body() createCartDto: CreateCartDto): Promise<Cart>{
-    return this.cartService.create(createCartDto);
+  delete(@Param('id') id: string){
+    this.cartService.delete(id);
   }
 }
