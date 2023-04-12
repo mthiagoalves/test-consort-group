@@ -3,7 +3,8 @@ import { CartService } from "./cart.service";
 import { CreateCartDto } from "./dto/create-cart.dto";
 import { ApiOperation, ApiTags } from '@nestjs/swagger/dist';
 import { Cart } from "./entities/cart.entity";
-import { Param } from "@nestjs/common/decorators";
+import { Param, Patch } from "@nestjs/common/decorators";
+import { UpdateCartDto } from "./dto/update-cart.dto";
 
 @ApiTags('Cart')
 @Controller('cart')
@@ -24,6 +25,14 @@ export class CartController {
   })
   findOne(@Param('id') id: string): Promise<Cart> {
     return this.cartService.findOne(id);
+  }
+
+  @Patch(':id')
+  @ApiOperation({
+    summary: 'Update a cart for id'
+  })
+  update(@Param('id') id: string, @Body() dto: UpdateCartDto): Promise<Cart> {
+    return this.cartService.update(id, dto);
   }
 
   @Post()
