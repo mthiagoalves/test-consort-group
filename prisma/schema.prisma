@@ -16,7 +16,6 @@ model Cart {
 
   createdAt DateTime   @default(now()) @map("created_at")
   updatedAt DateTime   @updatedAt @map("updated_at")
-  
   purchases Purchase[]
 
   @@map("cart")
@@ -30,7 +29,7 @@ model Product {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  purchases Purchase[]
+  purchases PurchaseProduct[]
 
   @@map("product")
 }
@@ -58,10 +57,25 @@ model Purchase {
   cart   Cart   @relation(fields: [cartId], references: [id])
   cartId String @map("cart_id")
 
-  products Product[]
+  products PurchaseProduct[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("purchase")
+}
+
+model PurchaseProduct {
+  id String @id @default(uuid())
+
+  purchase   Purchase @relation(fields: [purchaseId], references: [id])
+  purchaseId String   @map("purchase_id")
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String  @map("product_id")
+
+  quantity Int
+  comments String
+
+  @@map("purchase_to_product")
 }

@@ -26,9 +26,14 @@ export class PurchaseService {
         }
       },
       products: {
-        connect: createPurchaseDto.products.map(productId => ({
-          id: productId
-        }))
+        createMany: {
+          data: createPurchaseDto.products.map((createPurchaseProductDto) => ({
+            productId: createPurchaseProductDto.productId,
+            quantity: createPurchaseProductDto.quantity,
+            comments: createPurchaseProductDto.comments,
+
+          }))
+        }
       }
     };
 
@@ -48,7 +53,13 @@ export class PurchaseService {
         },
         products: {
           select: {
-            name: true
+            quantity: true,
+            product: {
+              select: {
+                name: true,
+              }
+            },
+            comments: true,
           }
         }
       }
@@ -96,9 +107,13 @@ export class PurchaseService {
         },
         products: {
           select: {
-            id: true,
-            name: true,
-            price: true,
+            product: {
+              select: {
+                id: true,
+                name: true,
+                price: true,
+              }
+            }
           }
         }
       },
