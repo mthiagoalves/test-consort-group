@@ -4,7 +4,7 @@
 
 These instructions will allow you to get a copy of the project up and running on your local machine for development and testing purposes.
 
-### 📋 Pré-requisitos
+### 📋 Requirements
 
 To run this project in your pc, 
 To run this project on your machine you will need to install some dependencies, you can see them in more detail at [package.json]
