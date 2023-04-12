@@ -24,11 +24,34 @@ export class PurchaseService {
             number: createPurchaseDto.cartNumber
           }
         }
+      },
+      products: {
+        connect: createPurchaseDto.products.map(productId => ({
+          id: productId
+        }))
       }
     };
 
-    this.prisma.purchase.create({
-      data
+    return this.prisma.purchase.create({
+      data,
+      select: {
+        id: true,
+        cart: {
+          select: {
+            number: true
+          }
+        },
+        user: {
+          select: {
+            name: true
+          }
+        },
+        products: {
+          select: {
+            name: true
+          }
+        }
+      }
     }).catch(handleError)
   }
 
