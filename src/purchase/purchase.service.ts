@@ -56,11 +56,53 @@ export class PurchaseService {
   }
 
   findAll() {
-    return `This action returns all purchase`;
+    return this.prisma.purchase.findMany({
+      select: {
+        id: true,
+        user: {
+          select: {
+            name: true,
+            username: true,
+          }
+        },
+        cart: {
+          select: {
+            number: true
+          }
+        },
+        _count: {
+          select: {
+            products: true
+          }
+        }
+      },
+    });
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} purchase`;
+    return this.prisma.purchase.findUnique({
+      where: { id },
+      include: {
+        user: {
+          select: {
+            name: true,
+            username: true,
+          },
+        },
+        cart: {
+          select: {
+            number: true
+          }
+        },
+        products: {
+          select: {
+            id: true,
+            name: true,
+            price: true,
+          }
+        }
+      },
+    });
   }
 
 
