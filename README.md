@@ -47,7 +47,7 @@ To access the documentation this project:
 ```bash
 # run in terminal
 
-$ npx @compodoc/compodoc -p tsconfig.json -s
+$ npm run compodoc
 ```
 
 ## ✒️ Author
