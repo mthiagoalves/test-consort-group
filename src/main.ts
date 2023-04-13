@@ -1,9 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: {
       origin: [
         'http://localhost:8080',
@@ -12,6 +13,8 @@ async function bootstrap() {
       ]
     }
   });
+
+  app.set('trust proxy', 1);
 
   const config = new DocumentBuilder()
     .setTitle('ProjectConsortGroup')
