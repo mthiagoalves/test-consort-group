@@ -1,12 +1,15 @@
 import { Body, Controller, Get, Post, HttpCode, HttpStatus } from "@nestjs/common";
 import { CartService } from "./cart.service";
 import { CreateCartDto } from "./dto/create-cart.dto";
-import { ApiOperation, ApiTags } from '@nestjs/swagger/dist';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger/dist';
 import { Cart } from "./entities/cart.entity";
-import { Delete, Param, Patch } from "@nestjs/common/decorators";
+import { Delete, Param, Patch, UseGuards } from "@nestjs/common/decorators";
 import { UpdateCartDto } from "./dto/update-cart.dto";
+import { AuthGuard } from "@nestjs/passport";
 
 @ApiTags('Cart')
+@UseGuards(AuthGuard())
+@ApiBearerAuth()
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService){}
