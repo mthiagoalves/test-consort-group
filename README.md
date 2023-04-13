@@ -40,6 +40,16 @@ $ npm run start:prod
 - Db - [PostgreSQL](https://www.postgresql.org/docs/)
 - Docs - [Swagger UI](https://swagger.io/docs/)
 
+## Acess documentation
+
+To access the documentation this project:
+
+```bash
+# run in terminal
+
+$ npx @compodoc/compodoc -p tsconfig.json -s
+```
+
 ## ✒️ Author
 
 - **Thiago Alves** - [Linkedin](https://www.linkedin.com/in/thiago-alves-b05ab2b0/)
