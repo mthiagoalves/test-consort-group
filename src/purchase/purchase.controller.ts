@@ -3,6 +3,8 @@ import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { PurchaseService } from './purchase.service';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { LoggedUser } from 'src/auth/log-user.decorator';
+import { User } from 'src/user/entities/user.entity';
 
 @ApiTags('Purchase')
 @UseGuards(AuthGuard())
@@ -15,8 +17,8 @@ export class PurchaseController {
   @ApiOperation({
     summary: 'Create a new purchase'
   })
-  create(@Body() createPurchaseDto: CreatePurchaseDto) {
-    return this.purchaseService.create(createPurchaseDto);
+  create(@LoggedUser() user: User, @Body() createPurchaseDto: CreatePurchaseDto) {
+    return this.purchaseService.create(user.id, createPurchaseDto);
   }
 
   @Get()

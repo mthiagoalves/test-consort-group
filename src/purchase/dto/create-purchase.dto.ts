@@ -5,13 +5,6 @@ import { Type } from "class-transformer";
 
 export class CreatePurchaseDto {
 
-  @IsUUID()
-  @ApiProperty({
-    description: 'User id that is created for purchase',
-    example: '9d093c09-7987-442d-a9b0-e00642e540cd'
-  })
-  userId: string;
-
   @IsInt()
   @IsPositive()
   @ApiProperty({

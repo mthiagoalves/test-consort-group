@@ -8,11 +8,11 @@ import { handleError } from 'src/utils/handle-error.utils';
 export class PurchaseService {
   constructor (private readonly prisma: PrismaService){}
 
-  create(createPurchaseDto: CreatePurchaseDto) {
+  create(userId: string, createPurchaseDto: CreatePurchaseDto) {
     const data: Prisma.PurchaseCreateInput = {
       user: {
         connect: {
-          id: createPurchaseDto.userId,
+          id: userId,
         },
       },
       cart: {
